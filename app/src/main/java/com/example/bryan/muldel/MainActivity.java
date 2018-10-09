@@ -6,19 +6,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.Response.ErrorListener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -26,9 +30,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class MainActivity extends Activity implements Response.Listener <JSONObject>, Response.ErrorListener  {
+public class MainActivity extends Activity implements Response.Listener <JSONObject>, ErrorListener  {
     RequestQueue rq;//Json
     JsonRequest jrq;//Json
+    JSONArray ja;
     String Var="steve";
     String Pass="123";
     Boolean rbactivado;
@@ -40,7 +45,8 @@ public class MainActivity extends Activity implements Response.Listener <JSONObj
     TextView textView;
     EditText editText2,edituser;
     RadioButton rbsesion;
-    //mensaje
+    Switch sbadmin;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +68,8 @@ public class MainActivity extends Activity implements Response.Listener <JSONObj
         editText2 = (EditText) findViewById(R.id.editText2);//Asociamos objeto editText1 del XML
         rbsesion= (RadioButton) findViewById(R.id.rbsesion);
         rbactivado = rbsesion.isChecked();//seleccionamos valor inicial de  botón de sesión.
+        sbadmin = (Switch) findViewById(R.id.swbutton);
+
 
         rq = Volley.newRequestQueue(this);
         //Evento hacer click en btn_admin
@@ -78,13 +86,26 @@ public class MainActivity extends Activity implements Response.Listener <JSONObj
             }
         });
 
+        sbadmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(sbadmin.isChecked()){
+                    Toast.makeText(getApplicationContext(), "Usuario o Contraseña Incorrecto", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+
+
 
         button_admin.setOnClickListener(new View.OnClickListener() {
             @Override
             //Evento click en boton
             public void onClick(View v) {
 
-                iniciarsesion();//metodo iniciar sesión
+               // iniciarsesion();//metodo iniciar sesión
+                ConsultaPass("http://192.168.1.13/ejemplologin/consultarusuario.php?user="+textusuario.getText().toString());
                 //Guardar Shared preferences de nombre de usuario
                 SharedPreferences preferences = getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
                 preferences.edit().putString("usuario", textusuario.getText().toString()).apply();//Se guarda estado activado como true de Radio buton
@@ -148,4 +169,49 @@ public class MainActivity extends Activity implements Response.Listener <JSONObj
         SharedPreferences preferences = c.getSharedPreferences (STRING_PREFERENCES, MODE_PRIVATE);
         preferences.edit().putBoolean(PREFERENCE_ESTADO_BUTTON_SESION,b).apply();
     }
+
+    private void ConsultaPass(String URL) {
+
+        Log.i("url",""+URL);
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest stringRequest =  new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    ja = new JSONArray(response);
+                    String contra = ja.getString(0);
+                    if(contra.equals(editText2.getText().toString())){
+
+                        Toast.makeText(getApplicationContext(),"Bienvenido",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, activity_admin.class);
+                        startActivity(intent);
+
+                    }else{
+                        Toast.makeText(getApplicationContext(),"verifique su contraseña",Toast.LENGTH_SHORT).show();
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                    Toast.makeText(getApplicationContext(),"El usuario no existe en la base de datos",Toast.LENGTH_LONG).show();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        queue.add(stringRequest);
+
+
+
+    }
+
 }
