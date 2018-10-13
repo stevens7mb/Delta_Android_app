@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Switch;
@@ -30,7 +31,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class MainActivity extends Activity implements Response.Listener <JSONObject>, ErrorListener  {
+public class MainActivity extends Activity implements Response.Listener <JSONObject>, ErrorListener, CompoundButton.OnCheckedChangeListener {
     RequestQueue rq;//Json
     JsonRequest jrq;//Json
     JSONArray ja;
@@ -46,6 +47,7 @@ public class MainActivity extends Activity implements Response.Listener <JSONObj
     EditText editText2,edituser;
     RadioButton rbsesion;
     Switch sbadmin;
+    int banderaswitch=0;//Bandera para conocer el estado del switch button
 
 
     @Override
@@ -71,8 +73,7 @@ public class MainActivity extends Activity implements Response.Listener <JSONObj
         sbadmin = (Switch) findViewById(R.id.swbutton);
 
 
-        rq = Volley.newRequestQueue(this);
-        //Evento hacer click en btn_admin
+         rq = Volley.newRequestQueue(this);
         //Abrir activity administrador
 
         //radio button de sesion cambiar de estado
@@ -82,21 +83,13 @@ public class MainActivity extends Activity implements Response.Listener <JSONObj
                 if(rbactivado){
                     rbsesion.setChecked(false); // si recibe el valor de rbactivado lo pondremos en falso
                 }
-                    rbactivado = rbsesion.isChecked();
+                rbactivado = rbsesion.isChecked();
             }
         });
 
-        sbadmin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(sbadmin.isChecked()){
-                    Toast.makeText(getApplicationContext(), "Usuario o Contraseña Incorrecto", Toast.LENGTH_SHORT).show();
-                }
+        //
 
-            }
-        });
-
-
+        sbadmin.setOnCheckedChangeListener(this);//llamamos a método de on/off
 
 
         button_admin.setOnClickListener(new View.OnClickListener() {
@@ -104,8 +97,19 @@ public class MainActivity extends Activity implements Response.Listener <JSONObj
             //Evento click en boton
             public void onClick(View v) {
 
-               // iniciarsesion();//metodo iniciar sesión
-                ConsultaPass("http://192.168.1.13/ejemplologin/consultarusuario.php?user="+textusuario.getText().toString());
+                if(banderaswitch==1){
+                    Toast.makeText(getApplicationContext(),"admin",Toast.LENGTH_LONG).show();
+                    ConsultaPass("http://192.168.1.8/ejemplologin/consultarusuario.php?user="+textusuario.getText().toString());
+                }else {
+                    Toast.makeText(getApplicationContext(),"tecnico",Toast.LENGTH_LONG).show();
+                    iniciarsesion();
+                }
+                // iniciarsesion();//metodo iniciar sesión
+                //if necesario para obtener estado de switch button de iniciar sesión como administrador
+
+                   // ConsultaPass("http://192.168.1.8/ejemplologin/consultarusuario.php?user="+textusuario.getText().toString());
+
+
                 //Guardar Shared preferences de nombre de usuario
                 SharedPreferences preferences = getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
                 preferences.edit().putString("usuario", textusuario.getText().toString()).apply();//Se guarda estado activado como true de Radio buton
@@ -116,7 +120,7 @@ public class MainActivity extends Activity implements Response.Listener <JSONObj
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getApplicationContext(), "Usuario o Contraseña Incorrecto"+error, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Usuario o Contraseña Incorrecto", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -134,11 +138,12 @@ public class MainActivity extends Activity implements Response.Listener <JSONObj
             usuario.setPwd(jsonObject.optString("pass"));
         } catch (JSONException e) {
             e.printStackTrace();
+            Toast.makeText(getApplicationContext(),"El usuario no existe en la base de datos",Toast.LENGTH_LONG).show();
 
         }
         //Obtener datos de nombre para pasarlo a activity administrador
         //Intent redireccion a nav_administrador
-        Intent intent = new Intent(MainActivity.this, activity_admin.class);
+        Intent intent = new Intent(MainActivity.this, activity_tecnico.class);//redirección a activity técnico drawer
         //intent.putExtra(activity_admin.user, usuario.getUser());
         startActivity(intent);
         finish();
@@ -147,7 +152,7 @@ public class MainActivity extends Activity implements Response.Listener <JSONObj
     }
     //Método Iniciar sesion
     private void iniciarsesion(){
-        String url ="http://192.168.1.13/webservices/login.php?user="+textusuario.getText().toString()+"&pwd="+editText2.getText().toString();
+        String url ="http://192.168.1.8/webservices/login.php?user="+textusuario.getText().toString()+"&pwd="+editText2.getText().toString();
         jrq = new JsonObjectRequest(Request.Method.POST, url, null, this, this);
         rq.add(jrq);
     }
@@ -185,11 +190,11 @@ public class MainActivity extends Activity implements Response.Listener <JSONObj
                     if(contra.equals(editText2.getText().toString())){
 
                         Toast.makeText(getApplicationContext(),"Bienvenido",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MainActivity.this, activity_admin.class);
+                        Intent intent = new Intent(MainActivity.this, activity_admin.class);//redirección a administrador drawer
                         startActivity(intent);
 
                     }else{
-                        Toast.makeText(getApplicationContext(),"verifique su contraseña",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Usuario o Contraseña Incorrecto",Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -214,4 +219,15 @@ public class MainActivity extends Activity implements Response.Listener <JSONObj
 
     }
 
+        //Método para saber si Switch button esta activado o desactivado.
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if(sbadmin.isChecked()){
+            Toast.makeText(getApplicationContext(),"activado",Toast.LENGTH_LONG).show();
+            banderaswitch=1;
+        }else{
+            Toast.makeText(getApplicationContext(),"desactivado",Toast.LENGTH_LONG).show();
+            banderaswitch=0;
+        }
+    }
 }
