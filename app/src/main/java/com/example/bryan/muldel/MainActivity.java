@@ -98,18 +98,10 @@ public class MainActivity extends Activity implements Response.Listener <JSONObj
             public void onClick(View v) {
 
                 if(banderaswitch==1){
-                    Toast.makeText(getApplicationContext(),"admin",Toast.LENGTH_LONG).show();
                     ConsultaPass("http://192.168.1.8/ejemplologin/consultarusuario.php?user="+textusuario.getText().toString());
                 }else {
-                    Toast.makeText(getApplicationContext(),"tecnico",Toast.LENGTH_LONG).show();
                     iniciarsesion();
                 }
-                // iniciarsesion();//metodo iniciar sesión
-                //if necesario para obtener estado de switch button de iniciar sesión como administrador
-
-                   // ConsultaPass("http://192.168.1.8/ejemplologin/consultarusuario.php?user="+textusuario.getText().toString());
-
-
                 //Guardar Shared preferences de nombre de usuario
                 SharedPreferences preferences = getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
                 preferences.edit().putString("usuario", textusuario.getText().toString()).apply();//Se guarda estado activado como true de Radio buton
@@ -120,10 +112,12 @@ public class MainActivity extends Activity implements Response.Listener <JSONObj
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getApplicationContext(), "Usuario o Contraseña Incorrecto", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Usuario o Contraseña Incorrecto"+error, Toast.LENGTH_SHORT).show();
     }
 
     @Override
+
+
 
 
     public void onResponse(JSONObject response) {
@@ -152,7 +146,9 @@ public class MainActivity extends Activity implements Response.Listener <JSONObj
     }
     //Método Iniciar sesion
     private void iniciarsesion(){
-        String url ="http://192.168.1.8/webservices/login.php?user="+textusuario.getText().toString()+"&pwd="+editText2.getText().toString();
+        //hosting http://muldel.000webhostapp.com/login.php?user
+       // http://192.168.1.8/webservices
+        String url ="http://muldel.000webhostapp.com/login.php?user/login.php?user="+textusuario.getText().toString()+"&pwd="+editText2.getText().toString();
         jrq = new JsonObjectRequest(Request.Method.POST, url, null, this, this);
         rq.add(jrq);
     }
@@ -223,10 +219,8 @@ public class MainActivity extends Activity implements Response.Listener <JSONObj
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if(sbadmin.isChecked()){
-            Toast.makeText(getApplicationContext(),"activado",Toast.LENGTH_LONG).show();
             banderaswitch=1;
         }else{
-            Toast.makeText(getApplicationContext(),"desactivado",Toast.LENGTH_LONG).show();
             banderaswitch=0;
         }
     }

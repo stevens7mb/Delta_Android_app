@@ -30,6 +30,6 @@
     <TextView
         android:id="@+id/txtusuario2"
         android:layout_width="146dp"
-        android:layout_height="29dp" />
+        android:layout_height="35dp" />
 
 </LinearLayout>

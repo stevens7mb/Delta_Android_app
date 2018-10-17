@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class activity_tecnico extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -108,7 +111,8 @@ public class activity_tecnico extends AppCompatActivity
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-
+            Toast.makeText(this, "option 1 navigation selected", Toast.LENGTH_SHORT).show();
+            setFragment(0);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
@@ -131,5 +135,20 @@ public class activity_tecnico extends AppCompatActivity
     public void eliminarnombreuser_cerrar(){
         SharedPreferences preferences = getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
         preferences.edit().clear().commit();
+    }
+    //método para establecer el estado de los fragmentos
+    public void setFragment(int position) {
+        FragmentManager fragmentManager;
+        FragmentTransaction fragmentTransaction;
+        switch (position) {
+            case 0:
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                mapsFragment inboxFragment = new mapsFragment();
+                fragmentTransaction.replace(R.id.content_tecnico, inboxFragment);
+                fragmentTransaction.commit();
+                break;
+
+        }
     }
 }
