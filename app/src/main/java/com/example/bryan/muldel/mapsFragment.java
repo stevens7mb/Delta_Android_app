@@ -29,11 +29,12 @@ public class mapsFragment extends Fragment implements Response.Listener<JSONObje
     Button boton_geo;
     TextView txtentrada;
     TextView txtsalida;
+    TextView txtsalidaregion;
     Button button_buscar;
     RequestQueue request;
     JsonObjectRequest jsonObjetRequest;
     String usuario;
-
+    String usuario2;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +49,7 @@ public class mapsFragment extends Fragment implements Response.Listener<JSONObje
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
         txtentrada = (TextView) view.findViewById(R.id.entrada);
         txtsalida = (TextView) view.findViewById(R.id.salida);
+        txtsalidaregion = (TextView) view.findViewById(R.id.salida_region);
         request = Volley.newRequestQueue(getContext());//para webservice
         button_buscar= (Button)view.findViewById(R.id.btn_buscar);
         button_buscar.setOnClickListener(new View.OnClickListener() {//Botón consultar
@@ -94,12 +96,14 @@ public class mapsFragment extends Fragment implements Response.Listener<JSONObje
         JSONObject jsonObject=null;
         try {
             jsonObject=json.getJSONObject(0);
-            usuario= jsonObject.optString("nombre");
+            usuario= jsonObject.optString("nombre_sitio");
+            usuario2= jsonObject.optString("nombre_sede");
 
         }catch (JSONException e){
             e.printStackTrace();
         }
         txtsalida.setText(usuario);
+        txtsalidaregion.setText(usuario2);
     }
 
     private void cargarWebservice() {//método cargar webservice
