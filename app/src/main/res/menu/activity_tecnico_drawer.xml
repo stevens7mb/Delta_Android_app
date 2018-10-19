@@ -6,20 +6,20 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:icon="@drawable/apertura"
+            android:title="Formulario Apertura" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/iconolocalizar"
-            android:title="Localización" />
+            android:icon="@drawable/cierre"
+            android:title="Formulario Cierre" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:icon="@drawable/iconolocalizar"
+            android:title="localización" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Configuración" />
     </group>
 
     <item android:title="Communicate">

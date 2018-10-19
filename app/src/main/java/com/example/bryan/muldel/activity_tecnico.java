@@ -109,12 +109,14 @@ public class activity_tecnico extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
             Toast.makeText(this, "option 1 navigation selected", Toast.LENGTH_SHORT).show();
             setFragment(0);
+        } else if (id == R.id.nav_gallery) {
+            Toast.makeText(this, "option 1 navigation selected", Toast.LENGTH_SHORT).show();
+            setFragment(1);
         } else if (id == R.id.nav_slideshow) {
-
+            Toast.makeText(this, "option 1 navigation selected", Toast.LENGTH_SHORT).show();
+            setFragment(2);
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
@@ -141,13 +143,29 @@ public class activity_tecnico extends AppCompatActivity
         FragmentManager fragmentManager;
         FragmentTransaction fragmentTransaction;
         switch (position) {
-            case 0:
+            case 0://Case de apertura de formulario incicial
                 fragmentManager = getSupportFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
-                mapsFragment inboxFragment = new mapsFragment();
-                fragmentTransaction.replace(R.id.content_tecnico, inboxFragment);
+                fragment_inicio inboxFragment1 = new fragment_inicio();
+                fragmentTransaction.replace(R.id.content_tecnico, inboxFragment1);
                 fragmentTransaction.commit();
                 break;
+            case 1://Case para el formulario de cierre
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragment_cierre inboxFragment2 = new fragment_cierre();
+                fragmentTransaction.replace(R.id.content_tecnico, inboxFragment2);
+                fragmentTransaction.commit();
+                break;
+            case 2://Case para localización de bts
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                mapsFragment inboxFragment3 = new mapsFragment();
+                fragmentTransaction.replace(R.id.content_tecnico, inboxFragment3);
+                fragmentTransaction.commit();
+                break;
+
+
 
         }
     }
