@@ -148,7 +148,7 @@ public class MainActivity extends Activity implements Response.Listener <JSONObj
     private void iniciarsesion(){
         //hosting http://muldel.000webhostapp.com/login.php?user
        // http://192.168.1.8/webservices
-        String url ="http://192.168.1.8/webservices/login.php?user/login.php?user="+textusuario.getText().toString()+"&pwd="+editText2.getText().toString();
+        String url ="http://muldel.000webhostapp.com/login.php?user/login.php?user/login.php?user="+textusuario.getText().toString()+"&pwd="+editText2.getText().toString();
         jrq = new JsonObjectRequest(Request.Method.POST, url, null, this, this);
         rq.add(jrq);
     }

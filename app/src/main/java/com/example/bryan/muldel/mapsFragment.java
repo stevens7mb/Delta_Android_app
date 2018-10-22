@@ -35,6 +35,8 @@ public class mapsFragment extends Fragment implements Response.Listener<JSONObje
     JsonObjectRequest jsonObjetRequest;
     String usuario;
     String usuario2;
+    double latitud=-90.222; // para la latitud valor decimal
+    double longitud=15.0000;// para la longitud valor decimal
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,8 +74,6 @@ public class mapsFragment extends Fragment implements Response.Listener<JSONObje
 
                 //Fragmento de código abrir activity de Google Maps con la ruta
                 Toast.makeText(getContext(),"Generando Ruta a BTS",Toast.LENGTH_LONG).show();
-                double latitud=-90.222; // para la latitud valor decimal
-                double longitud=15.0000;// para la longitud valor decimal
                 Uri gmmIntentUri = Uri.parse("google.navigation:q="+latitud+","+longitud+"&mode=d");
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
@@ -91,13 +91,16 @@ public class mapsFragment extends Fragment implements Response.Listener<JSONObje
 
     @Override
     public void onResponse(JSONObject response) {
+        //Consultando a webservice
         Toast.makeText(getContext(),"mensaje"+response,Toast.LENGTH_LONG).show();
-        JSONArray json=response.optJSONArray("usuario");
+        JSONArray json=response.optJSONArray("object_localizacion");
         JSONObject jsonObject=null;
         try {
             jsonObject=json.getJSONObject(0);
             usuario= jsonObject.optString("nombre_sitio");
             usuario2= jsonObject.optString("nombre_sede");
+            longitud= jsonObject.optDouble("longitud");//captura coordenada de longitud
+            latitud = jsonObject.optDouble("latitud");//captura coordenada de latitud.
 
         }catch (JSONException e){
             e.printStackTrace();
@@ -107,7 +110,10 @@ public class mapsFragment extends Fragment implements Response.Listener<JSONObje
     }
 
     private void cargarWebservice() {//método cargar webservice
-        String url = "http://192.168.1.8/webservices/consulta.php?documento="+ txtentrada.getText().toString();
+        //String conectar a webservice
+        //http://muldel.000webhostapp.com/consulta.php?documento
+       //string local http://192.168.1.8/webservices/WSlocalizacion.php?idsitio=
+        String url = "http://192.168.1.8/webservices/WSlocalizacion.php?idsitio="+ txtentrada.getText().toString();
         jsonObjetRequest = new JsonObjectRequest(Request.Method.POST,url,null, this,this);
         request.add(jsonObjetRequest);
 
