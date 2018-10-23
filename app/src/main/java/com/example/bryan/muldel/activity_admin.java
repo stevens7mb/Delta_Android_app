@@ -107,15 +107,23 @@ public class activity_admin extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_user) {
             Toast.makeText(this, "option 1 navigation selected", Toast.LENGTH_SHORT).show();
             setFragment(0);
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_rol) {
+            Toast.makeText(this, "option 2 navigation selected", Toast.LENGTH_SHORT).show();
+            setFragment(1);
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_eliminar) {
+            Toast.makeText(this, "option 3 navigation selected", Toast.LENGTH_SHORT).show();
+            setFragment(2);
 
+        } else if (id == R.id.nav_eliminartra) {
+            Toast.makeText(this, "option 5 navigation selected", Toast.LENGTH_SHORT).show();
+            setFragment(4);
+        } else if (id == R.id.nav_reporte) {
+            Toast.makeText(this, "option 6 navigation selected", Toast.LENGTH_SHORT).show();
+            setFragment(5);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -126,20 +134,7 @@ public class activity_admin extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    public void setFragment(int position) {
-        FragmentManager fragmentManager;
-        FragmentTransaction fragmentTransaction;
-        switch (position) {
-            case 0:
-                fragmentManager = getSupportFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragment_informe inboxFragment = new fragment_informe();
-                fragmentTransaction.replace(R.id.content, inboxFragment);
-                fragmentTransaction.commit();
-                break;
 
-        }
-    }
     public String obtenerusuario(){
         SharedPreferences preferences = getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
         String Usuario = preferences.getString ("usuario","aun no sirve");
@@ -148,5 +143,54 @@ public class activity_admin extends AppCompatActivity
     public void eliminarnombreuser_cerrar(){
         SharedPreferences preferences = getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
         preferences.edit().clear().commit();
+    }
+
+
+    //método para establecer el estado de los fragmentos
+    public void setFragment(int position) {
+        FragmentManager fragmentManager;
+        FragmentTransaction fragmentTransaction;
+        switch (position) {
+            case 0://Case  fragmento de agregar usuario
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragment_agregarusuario inboxFragment1 = new fragment_agregarusuario();
+                fragmentTransaction.replace(R.id.content_admin, inboxFragment1);
+                fragmentTransaction.commit();
+                break;
+              case 1://Case para Asignar rol
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragment_rol inboxFragment2 = new fragment_rol();
+                fragmentTransaction.replace(R.id.content_admin, inboxFragment2);
+                fragmentTransaction.commit();
+                break;
+            case 2://Case para eliminar usuario
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragment_eliminar inboxFragment3 = new fragment_eliminar();
+                fragmentTransaction.replace(R.id.content_admin, inboxFragment3);
+                fragmentTransaction.commit();
+                break;
+
+            case 4://Case para modificar mantenimiento de obra civil para telecomunicaciones
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragment_eliminartrabajo inboxFragment5 = new fragment_eliminartrabajo();
+                fragmentTransaction.replace(R.id.content_admin, inboxFragment5);
+                fragmentTransaction.commit();
+                break;
+            case 5://Case para modificar mantenimiento de obra civil para telecomunicaciones
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragment_reporte inboxFragment6 = new fragment_reporte();
+                fragmentTransaction.replace(R.id.content_admin, inboxFragment6);
+                fragmentTransaction.commit();
+                break;
+
+
+
+
+        }
     }
 }

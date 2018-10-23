@@ -94,7 +94,7 @@ public class MainActivity extends Activity implements Response.Listener <JSONObj
 
         button_admin.setOnClickListener(new View.OnClickListener() {
             @Override
-            //Evento click en boton
+            //evento click en boton
             public void onClick(View v) {
 
                 if(banderaswitch==1){

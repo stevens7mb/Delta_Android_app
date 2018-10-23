@@ -5,22 +5,23 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_user"
             android:icon="@android:drawable/ic_input_add"
             android:title="Agregar Usuario" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_rol"
+            android:icon="@android:drawable/ic_input_get"
+            android:title="Asignar Rol" />
+        <item
+            android:id="@+id/nav_eliminar"
             android:icon="@android:drawable/ic_menu_delete"
             android:title="Eliminar Usuario" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Modificar Trabajo" />
-        <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_eliminartra"
             android:icon="@android:drawable/ic_menu_delete"
             android:title="Eliminar Trabajo" />
         <item
+            android:id="@+id/nav_reporte"
             android:icon="@drawable/apertura"
             android:title="Generar Reporte" />
     </group>

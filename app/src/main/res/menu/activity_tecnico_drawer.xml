@@ -17,6 +17,10 @@
             android:icon="@drawable/iconolocalizar"
             android:title="Localización" />
         <item
+            android:id="@+id/nav_sync"
+            android:icon="@android:drawable/ic_popup_sync"
+            android:title="Sincronizar en línea" />
+        <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
             android:title="Configuración" />
