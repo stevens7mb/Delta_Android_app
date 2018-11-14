@@ -117,8 +117,9 @@ public class activity_tecnico extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
             Toast.makeText(this, "option 1 navigation selected", Toast.LENGTH_SHORT).show();
             setFragment(2);
-        } else if (id == R.id.nav_manage) {
-
+        } else if (id == R.id.nav_sync) {
+            Toast.makeText(this, "option 1 navigation selected", Toast.LENGTH_SHORT).show();
+            setFragment(3);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -164,6 +165,7 @@ public class activity_tecnico extends AppCompatActivity
                 fragmentTransaction.replace(R.id.content_tecnico, inboxFragment3);
                 fragmentTransaction.commit();
                 break;
+
 
 
 

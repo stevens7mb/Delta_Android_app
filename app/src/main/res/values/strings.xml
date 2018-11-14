@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MulDel</string>
     <string name="usuario">Ingrese Usuario</string>
-    <string name="btn_ingresar">OK</string>
+    <string name="btn_ingresar">Iniciar Sesión</string>
     <string name="pass">Ingrese Contraseña</string>
     <string name="title_activity_nav__administrador">Nav_Administrador</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -17,4 +17,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_admin">Sistema Administrador</string>
     <string name="title_activity_tecnico">Sistema Técnico</string>
+    <string name="title_activity_reporte">activity_reporte</string>
 </resources>

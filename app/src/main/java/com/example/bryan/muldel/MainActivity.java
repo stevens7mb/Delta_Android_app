@@ -98,7 +98,7 @@ public class MainActivity extends Activity implements Response.Listener <JSONObj
             public void onClick(View v) {
 
                 if(banderaswitch==1){
-                    ConsultaPass("http://192.168.1.8/ejemplologin/consultarusuario.php?user="+textusuario.getText().toString());
+                    ConsultaPass("http://192.168.43.115/ejemplologin/consultarusuario.php?user="+textusuario.getText().toString());
                 }else {
                     iniciarsesion();
                 }

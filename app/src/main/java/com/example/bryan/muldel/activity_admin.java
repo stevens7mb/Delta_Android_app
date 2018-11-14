@@ -2,6 +2,7 @@ package com.example.bryan.muldel;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -107,7 +108,7 @@ public class activity_admin extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_user) {
+        if (id == R.id.nav_usuario) {
             Toast.makeText(this, "option 1 navigation selected", Toast.LENGTH_SHORT).show();
             setFragment(0);
         } else if (id == R.id.nav_rol) {
@@ -154,8 +155,8 @@ public class activity_admin extends AppCompatActivity
             case 0://Case  fragmento de agregar usuario
                 fragmentManager = getSupportFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
-                fragment_agregarusuario inboxFragment1 = new fragment_agregarusuario();
-                fragmentTransaction.replace(R.id.content_admin, inboxFragment1);
+                fragment_agregarusuario inboxFragment11 = new fragment_agregarusuario();
+                fragmentTransaction.replace(R.id.content_admin, inboxFragment11);
                 fragmentTransaction.commit();
                 break;
               case 1://Case para Asignar rol
@@ -186,7 +187,10 @@ public class activity_admin extends AppCompatActivity
                 fragment_reporte inboxFragment6 = new fragment_reporte();
                 fragmentTransaction.replace(R.id.content_admin, inboxFragment6);
                 fragmentTransaction.commit();
-                break;
+                Toast.makeText(getApplicationContext(),"Activity Reportes",Toast.LENGTH_LONG).show();
+                /*Intent intent = new Intent (getApplicationContext(), activity_reporte.class);
+                startActivityForResult(intent, 0);;
+                break;*/
 
 
 

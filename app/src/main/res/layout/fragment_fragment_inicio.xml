@@ -116,12 +116,13 @@
                 android:text="Foto 1 Placa del Sitio" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/imgplaca"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <Button
+                android:id="@+id/btn_placa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Capturar Imagen" />
@@ -132,12 +133,13 @@
                 android:text="Foto 2 falla encontrada" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/img_falla"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <Button
+                android:id="@+id/btn_falla"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Capturar Imagen 2" />

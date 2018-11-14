@@ -23,6 +23,7 @@
                 android:text="ID sitio" />
 
             <EditText
+                android:id="@+id/etid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Identificador sitio" />
@@ -33,6 +34,7 @@
                 android:text="Fecha Fin" />
 
             <EditText
+                android:id="@+id/etfecha_fin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -42,6 +44,7 @@
                 android:text="Hora Fin" />
 
             <EditText
+                android:id="@+id/ethora_fin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -51,7 +54,7 @@
                 android:text="Técnico Encargado" />
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/stecnico"
                 android:layout_width="238dp"
                 android:layout_height="35dp" />
 
@@ -66,7 +69,7 @@
                 android:text="Supervisor Ericsson" />
 
             <Spinner
-                android:id="@+id/spinner2"
+                android:id="@+id/ssupervisor"
                 android:layout_width="239dp"
                 android:layout_height="34dp" />
 
@@ -81,12 +84,13 @@
                 android:layout_height="51dp" />
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/imgplaca"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <Button
+                android:id="@+id/btn_foto1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="CAPTURAR FOTO 1" />
@@ -97,12 +101,13 @@
                 android:text="Foto 2 vista general" />
 
             <ImageView
-                android:id="@+id/imageView5"
+                android:id="@+id/imgeneral"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <Button
+                android:id="@+id/btnfoto2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="CAPTURAR FOTO 2" />
@@ -112,6 +117,7 @@
                 android:layout_height="51dp" />
 
             <Button
+                android:id="@+id/btn_guardarinfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="GUARDAR INFORMACIÓN" />
